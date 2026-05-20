@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #0b132b;
+        color: white;
+      }
+      .box {
+        text-align: center;
+        background: #1c2541;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+      .time {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .start {
+        background: #4caf50;
+        color: white;
+      }
+      .stop {
+        background: #f44336;
+        color: white;
+      }
+      .reset {
+        background: #008cba;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h2>Soniya O'lchagich</h2>
+      <div class="time" id="display">00:00:00</div>
+      <button class="start" onclick="start()">Start</button>
+      <button class="stop" onclick="stop()">Stop</button>
+      <button class="reset" onclick="reset()">Reset</button>
+    </div>
+
+    <script>
+      let timer,
+        seconds = 0,
+        minutes = 0,
+        hours = 0;
+      function start() {
+        if (!timer) timer = setInterval(run, 1000);
+      }
+      function stop() {
+        clearInterval(timer);
+        timer = null;
+      }
+      function reset() {
+        stop();
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        updateDisplay();
+      }
+      function run() {
+        seconds++;
+        if (seconds == 60) {
+          seconds = 0;
+          minutes++;
+        }
+        if (minutes == 60) {
+          minutes = 0;
+          hours++;
+        }
+        updateDisplay();
+      }
+      function updateDisplay() {
+        let h = String(hours).padStart(2, "0");
+        let m = String(minutes).padStart(2, "0");
+        let s = String(seconds).padStart(2, "0");
+        document.getElementById("display").textContent = `${h}:${m}:${s}`;
+      }
+    </script>
+  </body>
+</html>
